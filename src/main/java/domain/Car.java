@@ -11,5 +11,15 @@ public class Car {
     public String getName() {
         return name;
     }
-    // 추가 기능 구현
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void Go() {
+        int randomNum = (int) (Math.random() * 9);
+        if (randomNum >= 4) {
+            this.position+=1;
+        }
+    }
 }

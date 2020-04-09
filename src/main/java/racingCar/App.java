@@ -5,11 +5,9 @@ package racingCar;
 
 import domain.Car;
 
-import javax.security.sasl.SaslServer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-import java.util.Spliterator;
 
 public class App {
     static final Scanner sc = new Scanner(System.in);
