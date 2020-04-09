@@ -8,5 +8,8 @@ public class Car {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
     // 추가 기능 구현
 }
