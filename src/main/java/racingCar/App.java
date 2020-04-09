@@ -10,10 +10,13 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.stream.IntStream;
 
+import static java.util.stream.Collectors.joining;
+
 public class App {
     static final Scanner sc = new Scanner(System.in);
     static ArrayList<Car> cars = new ArrayList<>();
     static int count;
+    static int maxDistance = 0;
 
     public static void init() {
         System.out.println("경주할 자동차 이름을  입력하세요.(이름은 쉼표(,) 기준으로 구분)");
@@ -26,21 +29,34 @@ public class App {
 
     public static void printDistance() {
         cars.forEach(car -> {
+            if (car.getPosition() > maxDistance) {
+                maxDistance = car.getPosition();
+            }
             StringBuilder distance = new StringBuilder();
             IntStream.range(0, car.getPosition()).forEach(i -> {
                 distance.append("-");
             });
-            System.out.println(car.getName() + " :" + distance);
+            System.out.println(car.getName() + " : " + distance);
         });
+    }
+
+    public static void printResult() {
+        String candidates = cars.stream()
+                .filter(car -> car.getPosition() == maxDistance)
+                .map(Car::getName)
+                .collect(joining(", "));
+        System.out.println(candidates + "가 최종 우승했습니다.");
     }
 
     public static void main(String[] args) {
         init();
         System.out.println("실행결과");
         for (int i = 0; i < count; i++) {
-            cars.forEach(car -> car.Go());
+            cars.forEach(Car::Go);
             printDistance();
             System.out.println();
         }
+        printResult();
+        sc.close();
     }
 }
