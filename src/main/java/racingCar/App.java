@@ -8,22 +8,39 @@ import domain.Car;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 public class App {
     static final Scanner sc = new Scanner(System.in);
-    static ArrayList<Car> Cars = new ArrayList<>();
+    static ArrayList<Car> cars = new ArrayList<>();
     static int count;
 
     public static void init() {
         System.out.println("경주할 자동차 이름을  입력하세요.(이름은 쉼표(,) 기준으로 구분)");
         Arrays.stream(sc.nextLine().split(",")).forEach(name -> {
-            Cars.add(new Car(name.trim()));
+            cars.add(new Car(name.trim()));
         });
         System.out.println("시도할 횟수는 몇 회인가요?");
         count = sc.nextInt();
     }
 
+    public static void printDistance() {
+        cars.forEach(car -> {
+            StringBuilder distance = new StringBuilder();
+            IntStream.range(0, car.getPosition()).forEach(i -> {
+                distance.append("-");
+            });
+            System.out.println(car.getName() + " :" + distance);
+        });
+    }
+
     public static void main(String[] args) {
         init();
+        System.out.println("실행결과");
+        for (int i = 0; i < count; i++) {
+            cars.forEach(car -> car.Go());
+            printDistance();
+            System.out.println();
+        }
     }
 }
