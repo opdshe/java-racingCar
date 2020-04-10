@@ -31,3 +31,6 @@
   유도하여 버그를 줄이는 것이 좋다.   
   참고: https://webcoding.tistory.com/entry/JAVA-%EC%A0%91%EA%B7%BC-%EC%A0%9C%EC%96%B4%EC%9E%90%EC%9D%98-%EC%A2%85%EB%A5%98%EC%99%80-%EC%82%AC%EC%9A%A9-%EC%9D%B4%EC%9C%A0
   
++ getter, setter는 클래스의 가장 밑으로 빼 두는 것이 좋다.
+  + 이유: getter, setter의 용도는 대부분의 개발자들은 이미 알고있다. 따라서 가장 아래쪽으로 빼 둠으로써 굳이 getter, setter를 읽는 데 시간을 뺏           기지 않도록 도와주자.
+  
