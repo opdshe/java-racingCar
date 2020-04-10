@@ -86,7 +86,7 @@ public class App {
 
     public static void printResult() {
         String candidates = cars.stream()
-                .filter(car -> car.isMaxPorision(maxDistance))
+                .filter(car -> car.isMaxPosition(maxDistance))
                 .map(Car::getName)
                 .collect(joining(", "));
         System.out.println(candidates + "가 최종 우승했습니다.");

@@ -24,7 +24,7 @@ public class Car {
         }
     }
 
-    public boolean isMaxPorision(int maxDistance){
+    public boolean isMaxPosition(int maxDistance){
         return this.getPosition() == maxDistance;
     }
 
