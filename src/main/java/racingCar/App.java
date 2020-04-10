@@ -21,7 +21,7 @@ public class App {
     static final int MIN_COUNT = 1;
 
     static Scanner sc = new Scanner(System.in);
-    static List<Car> cars = new ArrayList<Car>();
+    static List<Car> cars = new ArrayList<>();
     static int key;
     static int count;
     static int maxDistance = 0;
@@ -31,16 +31,21 @@ public class App {
         setCount();
     }
 
-    public static int checkCarName(String name) {
-        if (name.isBlank()) {
-            System.out.println(name + "자동차 이름으로 빈 문자열을 사용할 수 없습니다.");
+    public static int checkCarNames(List<String> names) {
+        if (names.isEmpty()) {
+            System.out.println("자동차 이름으로 콤마를 입력했습니다. 다시 입력하세요.");
             return FAIL;
-        } else if (name.length() > MAX_NAME_LENGTH) {
-            System.out.printf("자동차 이름은 다섯 글자 이하만 가능합니다. <%s>%n", name);
-            return FAIL;
-        } else {
-            return SUCCESS;
         }
+        for (String name : names) {
+            if (name.isBlank()) {
+                System.out.println(name + "자동차 이름으로 빈 문자열을 사용할 수 없습니다.");
+                return FAIL;
+            } else if (name.length() > MAX_NAME_LENGTH) {
+                System.out.println("자동차 이름은 다섯 글자 이하만 가능합니다.");
+                return FAIL;
+            }
+        }
+        return SUCCESS;
     }
 
     public static void setCarNames() {
@@ -51,11 +56,8 @@ public class App {
             names = Arrays.stream(sc.nextLine().split(","))
                     .map(String::trim)
                     .collect(Collectors.toList());
-            for (String name : names) {
-                if (checkCarName(name) == FAIL) {
-                    key = FAIL;
-                    break;
-                }
+            if (checkCarNames(names) == FAIL) {
+                key = FAIL;
             }
         } while (key == FAIL);
         names.forEach(name -> cars.add(new Car(name)));
@@ -78,11 +80,7 @@ public class App {
             if (car.getPosition() > maxDistance) {
                 maxDistance = car.getPosition();
             }
-            StringBuilder distance = new StringBuilder();
-            IntStream.range(0, car.getPosition()).forEach(i -> {
-                distance.append("-");
-            });
-            System.out.println(car.getName() + " : " + distance);
+            System.out.println(car.getName() + " : " + "-".repeat(car.getPosition()));
         });
     }
 
