@@ -7,24 +7,70 @@ import domain.Car;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.joining;
 
 public class App {
-    static final Scanner sc = new Scanner(System.in);
-    static ArrayList<Car> cars = new ArrayList<>();
+    static final int SUCCESS = 1;
+    static final int FAIL = 0;
+    static final int MAX_NAME_LENGTH = 5;
+    static final int MIN_COUNT = 1;
+
+    static Scanner sc = new Scanner(System.in);
+    static List<Car> cars = new ArrayList<Car>();
+    static int key;
     static int count;
     static int maxDistance = 0;
 
     public static void init() {
-        System.out.println("경주할 자동차 이름을  입력하세요.(이름은 쉼표(,) 기준으로 구분)");
-        Arrays.stream(sc.nextLine().split(",")).forEach(name -> {
-            cars.add(new Car(name.trim()));
-        });
-        System.out.println("시도할 횟수는 몇 회인가요?");
-        count = sc.nextInt();
+        setCarNames();
+        setCount();
+    }
+
+    public static int checkCarName(String name) {
+        if (name.isBlank()) {
+            System.out.println(name + "자동차 이름으로 빈 문자열을 사용할 수 없습니다.");
+            return FAIL;
+        } else if (name.length() > MAX_NAME_LENGTH) {
+            System.out.printf("자동차 이름은 다섯 글자 이하만 가능합니다. <%s>%n", name);
+            return FAIL;
+        } else {
+            return SUCCESS;
+        }
+    }
+
+    public static void setCarNames() {
+        List<String> names;
+        do {
+            key = SUCCESS;
+            System.out.println("경주할 자동차 이름을  입력하세요.(이름은 쉼표(,) 기준으로 구분)");
+            names = Arrays.stream(sc.nextLine().split(","))
+                    .map(String::trim)
+                    .collect(Collectors.toList());
+            for (String name : names) {
+                if (checkCarName(name) == FAIL) {
+                    key = FAIL;
+                    break;
+                }
+            }
+        } while (key == FAIL);
+        names.forEach(name -> cars.add(new Car(name)));
+    }
+
+    public static void setCount() {
+        do {
+            key = SUCCESS;
+            System.out.println("시도할 횟수는 몇 회인가요?");
+            count = sc.nextInt();
+            if (count < MIN_COUNT) {
+                System.out.println("시도 횟수는 1 이상이어야 합니다. 다시 입력하세요.");
+                key = FAIL;
+            }
+        } while (key == FAIL);
     }
 
     public static void printDistance() {
@@ -42,7 +88,7 @@ public class App {
 
     public static void printResult() {
         String candidates = cars.stream()
-                .filter(car -> car.getPosition() == maxDistance)
+                .filter(car -> car.isMaxPorision(maxDistance))
                 .map(Car::getName)
                 .collect(joining(", "));
         System.out.println(candidates + "가 최종 우승했습니다.");

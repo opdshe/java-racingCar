@@ -1,6 +1,7 @@
 package domain;
 
 public class Car {
+    static final int RANDOM_MAX = 9;
     private final String name;
     private int position = 0;
 
@@ -17,9 +18,14 @@ public class Car {
     }
 
     public void Go() {
-        int randomNum = (int) (Math.random() * 9);
+        int randomNum = (int) (Math.random() * RANDOM_MAX);
         if (randomNum >= 4) {
             this.position += 1;
         }
     }
+
+    public boolean isMaxPorision(int maxDistance){
+        return this.getPosition() == maxDistance;
+    }
+
 }
