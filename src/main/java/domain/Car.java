@@ -1,7 +1,8 @@
 package domain;
 
 public class Car {
-    static final int RANDOM_MAX = 9;
+    private static final int RANDOM_MAX = 9;
+    private static final int BENCHMARK = 4;
     private final String name;
     private int position = 0;
 
@@ -9,9 +10,9 @@ public class Car {
         this.name = name;
     }
 
-    public void Go() {
+    public void go() {
         int randomNum = (int) (Math.random() * RANDOM_MAX);
-        if (randomNum >= 4) {
+        if (randomNum >= BENCHMARK) {
             this.position += 1;
         }
     }
