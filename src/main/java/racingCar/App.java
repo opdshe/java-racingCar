@@ -5,10 +5,7 @@ package racingCar;
 
 import domain.Car;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -67,10 +64,16 @@ public class App {
         do {
             key = SUCCESS;
             System.out.println("시도할 횟수는 몇 회인가요?");
-            count = sc.nextInt();
-            if (count < MIN_COUNT) {
-                System.out.println("시도 횟수는 1 이상이어야 합니다. 다시 입력하세요.");
+            try{
+                count = sc.nextInt();
+                if (count < MIN_COUNT) {
+                    System.out.println("시도 횟수는 1 이상이어야 합니다. 다시 입력하세요.");
+                    key = FAIL;
+                }
+            }catch (InputMismatchException e){
+                System.out.println("시도 횟수는 숫자(정수)값이어야 합니다.");
                 key = FAIL;
+                sc.next(); // 버그방지용 코드
             }
         } while (key == FAIL);
     }
