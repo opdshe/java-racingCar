@@ -12,7 +12,7 @@ import java.util.stream.IntStream;
 import static java.util.stream.Collectors.joining;
 
 public class App {
-    static final int SUCCESS = 1;
+    private static final int SUCCESS = 1;
     static final int FAIL = 0;
     static final int MAX_NAME_LENGTH = 5;
     static final int MIN_COUNT = 1;

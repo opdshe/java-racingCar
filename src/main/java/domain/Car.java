@@ -9,14 +9,6 @@ public class Car {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public int getPosition() {
-        return position;
-    }
-
     public void Go() {
         int randomNum = (int) (Math.random() * RANDOM_MAX);
         if (randomNum >= 4) {
@@ -26,6 +18,13 @@ public class Car {
 
     public boolean isMaxPosition(int maxDistance){
         return this.getPosition() == maxDistance;
+    }
+    public String getName() {
+        return name;
+    }
+
+    public int getPosition() {
+        return position;
     }
 
 }
